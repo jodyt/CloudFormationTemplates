@@ -41,7 +41,7 @@
           "Properties" :
             {
               "GroupDescription" : "Internal SG",
-              "VpcID" : "vpc-9a45f1ff",
+              "VpcId" : "vpc-9a45f1ff",
               "Tags" : [ {
                 "Key" : "Name",
                 "Value" : "PrivateSG"
