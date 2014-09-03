@@ -43,8 +43,7 @@
               "GroupDescription" : "Internal SG",
               "Tags" : [ {
                 "Key" : "Name",
-                "Value" : "PrivateSG",
-                "PropogateAtLaunch" : "true"
+                "Value" : "PrivateSG"
               } ]
           }
         }
