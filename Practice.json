@@ -32,7 +32,7 @@
             "Type" : "AWS::EC2::Instance",
             "Properties" : {
                 "SecurityGroupIds" : ["sg-1a37697f"],
-                "AvailabilityZone" : "us-east-1a",
+                "AvailabilityZone" : "us-east-1c",
                 "ImageId" : "ami-e84d8480",
                 "SubnetId" : "subnet-fa6177d2",
                 "InstanceType" : { "Fn::FindInMap" : [ "InstanceSizeMap", { "Ref" : "Environment" }, "InstanceSize" ] }
