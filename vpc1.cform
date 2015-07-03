@@ -45,17 +45,15 @@
           }
         },
         "vpc1internetGateway": {
-          "DependsOn" : [ "vpc1" ],
           "Type": "AWS::EC2::InternetGateway",
           "Properties": {
             "Tags": [ { "Key" : "Name", "Value" : "vpc1internetGateway" } ]
           }
         },
         "AttachGateway": {
-          "DependsOn" : [ "vpc1", "vpc1internetGateway" ],
           "Type": "AWS::EC2::VPCGatewayAttachment",
           "Properties": {
-            "VpcId": { "Ref" : "vpc1" },
+            "VpcId": { "Ref": "vpc1" },
             "InternetGatewayId": { "Ref": "vpc1internetGateway" }
           }
         },
@@ -75,7 +73,7 @@
             "Tags": [ { "Key" : "Name", "Value" : "internetGatewayRouteTable" } ]
           }
         },
-        "toInternetGateway": {
+        "routeToInternetGateway": {
           "DependsOn" : [ "vpc1", "internetGatewayRouteTable", "vpc1internetGateway" ],
           "Type": "AWS::EC2::Route",
           "Properties": {
