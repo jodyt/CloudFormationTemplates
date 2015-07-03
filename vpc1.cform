@@ -236,7 +236,7 @@
                 "DisableApiTermination": "false",
                 "ImageId": { "Fn::FindInMap" : [ "RegionAmiMap", { "Ref" : "AWS::Region" }, "ubuntu1404" ] },
                 "InstanceType": "-",
-                "Monitoring": "true|false",
+                "Monitoring": "false",
                 "SecurityGroupIds" : [ { "Ref" : "chefServerSecurityGroup" } ],
                 "Tags": [
                     {
