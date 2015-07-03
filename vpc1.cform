@@ -239,6 +239,7 @@
                 "InstanceType": "t2.micro",
                 "Monitoring": "false",
                 "SecurityGroupIds" : [ { "Ref" : "chefServerSecurityGroup" } ],
+                "SubnetId" : { "Ref" : "internalEast1a" },
                 "Tags": [
                     {
                         "Key": "Name",
