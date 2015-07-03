@@ -230,12 +230,13 @@
           }
         },
         "chefServer": {
+            "DependsOn" : [ "vpc1", "chefServerSecurityGroup", "internalEast1a" ],
             "Type": "AWS::EC2::Instance",
             "Properties": {
                 "KeyName": "HomeTestKey",
                 "DisableApiTermination": "false",
                 "ImageId": { "Fn::FindInMap" : [ "RegionAmiMap", { "Ref" : "AWS::Region" }, "ubuntu1404" ] },
-                "InstanceType": "-",
+                "InstanceType": "t2.micro",
                 "Monitoring": "false",
                 "SecurityGroupIds" : [ { "Ref" : "chefServerSecurityGroup" } ],
                 "Tags": [
