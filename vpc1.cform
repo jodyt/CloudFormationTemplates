@@ -9,7 +9,7 @@
     },
     "Mappings": {
         "RegionAmiMap" : {
-            "us-east-1"     : { "nat" : "ami-184dc970" }
+            "us-east-1"     : { "nat" : "ami-184dc970", "ubuntu1404" : "ami-d05e75b8" }
         }
 
     },
@@ -152,7 +152,111 @@
             "Domain": "vpc",
             "InstanceId": { "Ref" : "natUsEast1a" }
           }
+        },
+        "chefServerSecurityGroup" : {
+          "Type" : "AWS::EC2::SecurityGroup",
+          "Properties" : {
+            "GroupDescription" : "Security group for the chef server instance(s).",
+            "SecurityGroupIngress" : [ 
+              { 
+              "IpProtocol" : "TCP",
+              "FromPort" : "22",
+              "ToPort" : "22",
+              "CidrIp" : "162.230.15.72/32"
+            }, {
+                "IpProtocol" : "TCP",
+                "FromPort" : "80",
+                "ToPort" : "80",
+                "CidrIp" : "10.10.1.0/24"
+            }, {
+                "IpProtocol" : "TCP",
+                "FromPort" : "443",
+                "ToPort" : "443",
+                "CidrIp" : "10.10.1.0/24"
+            }, {
+                "IpProtocol" : "TCP",
+                "FromPort" : "9463",
+                "ToPort" : "9463",
+                "CidrIp" : "10.10.1.0/24"
+            }, {
+                "IpProtocol" : "TCP",
+                "FromPort" : "9683",
+                "ToPort" : "9683",
+                "CidrIp" : "10.10.1.0/24"
+            }, {
+                "IpProtocol" : "TCP",
+                "FromPort" : "9090",
+                "ToPort" : "9090",
+                "CidrIp" : "10.10.1.0/24"
+            }, {
+                "IpProtocol" : "TCP",
+                "FromPort" : "8000",
+                "ToPort" : "8000",
+                "CidrIp" : "10.10.1.0/24"
+            }, {
+                "IpProtocol" : "TCP",
+                "FromPort" : "9680",
+                "ToPort" : "9680",
+                "CidrIp" : "10.10.1.0/24"
+            }, {
+                "IpProtocol" : "TCP",
+                "FromPort" : "4321",
+                "ToPort" : "4321",
+                "CidrIp" : "10.10.1.0/24"
+            }, {
+                "IpProtocol" : "TCP",
+                "FromPort" : "8983",
+                "ToPort" : "8983",
+                "CidrIp" : "10.10.1.0/24"
+            }, {
+                "IpProtocol" : "TCP",
+                "FromPort" : "5432",
+                "ToPort" : "5432",
+                "CidrIp" : "10.10.1.0/24"
+            }, {
+                "IpProtocol" : "TCP",
+                "FromPort" : "5672",
+                "ToPort" : "5672",
+                "CidrIp" : "10.10.1.0/24"
+            }, {
+                "IpProtocol" : "TCP",
+                "FromPort" : "16379",
+                "ToPort" : "16379",
+                "CidrIp" : "10.10.1.0/24"
+            }
+            ],
+            "VpcId" : { "Ref" : "vpc1" },
+            "Tags" :  [ { "Key" : "Name", "Value" : "chefServerSecurityGroup" } ]
+          }
+        },
+        "chefServer": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "KeyName": "HomeTestKey",
+                "DisableApiTermination": "false",
+                "ImageId": { "Fn::FindInMap" : [ "RegionAmiMap", { "Ref" : "AWS::Region" }, "ubuntu1404" ] },
+                "InstanceType": "-",
+                "Monitoring": "true|false",
+                "SecurityGroupIds" : [ { "Ref" : "chefServerSecurityGroup" } ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "chefServer"
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -ex",
+                                "-"
+                            ]
+                        ]
+                    }
+                }
         }
+                }
 
     },
     "Outputs": {
