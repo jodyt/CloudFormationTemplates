@@ -142,18 +142,7 @@
                         "Key": "Name",
                         "Value": "natUsEast1a"
                     }
-                ],
-                "UserData": {
-                    "Fn::Base64": {
-                        "Fn::Join": [
-                            "",
-                            [
-                                "#!/bin/bash -ex",
-                                "-"
-                            ]
-                        ]
-                    }
-                }
+                ]
         }
                 },
         "natElasticIp": {
