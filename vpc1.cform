@@ -126,6 +126,21 @@
             "Tags" :  [ { "Key" : "Name", "Value" : "natSecurityGroup" } ]
           }
         },
+        "bastionSecurityGroup" : {
+          "Type" : "AWS::EC2::SecurityGroup",
+          "Properties" : {
+            "GroupDescription" : "Allow outbound SSH access.",
+            "SecurityGroupIngress" : [],
+            "SecurityGroupEgress" : [ {
+                "IpProtocol" : "TCP",
+                "FromPort" : "22",
+                "ToPort" : "22",
+                "CidrIp" : "162.230.15.72/32"
+            } ],
+            "VpcId" : { "Ref" : "vpc1" },
+            "Tags" :  [ { "Key" : "Name", "Value" : "bastionSecurityGroup" } ]
+          }
+        },
         "natUsEast1a": {
             "DependsOn" : [ "vpc1", "natSecurityGroup", "externalEast1a" ],
             "Type": "AWS::EC2::Instance",
@@ -135,7 +150,7 @@
                 "ImageId": { "Fn::FindInMap" : [ "RegionAmiMap", { "Ref" : "AWS::Region" }, "nat" ] },
                 "InstanceType": "t2.micro",
                 "Monitoring": "false",
-                "SecurityGroupIds" : [ { "Ref" : "natSecurityGroup" } ],
+                "SecurityGroupIds" : [ { "Ref" : "natSecurityGroup" }, { "Ref" : "bastionSecurityGroup" } ],
                 "SubnetId" : { "Ref" : "externalEast1a" },
                 "Tags": [
                     {
