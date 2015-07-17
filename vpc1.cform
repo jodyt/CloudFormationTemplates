@@ -82,6 +82,14 @@
             "Tags": [ { "Key" : "Name", "Value" : "internetGatewayRouteTable" } ]
           }
         },
+        "associateInternalEast1aToNatRouteTable": {
+          "DependsOn" : [ "vpc1", "natRouteTable", "natUsEast1a" ],
+          "Type": "AWS::EC2::SubnetRouteTableAssociation",
+          "Properties": {
+            "SubnetId": { "Ref" : "internalEast1a" },
+            "RouteTableId": { "Ref" : "natRouteTable" }
+          }
+        },
         "routeToInternetGateway": {
           "DependsOn" : [ "vpc1", "internetGatewayRouteTable", "vpc1internetGateway" ],
           "Type": "AWS::EC2::Route",
