@@ -66,11 +66,12 @@
           }
         },
         "routeToNatInstance": {
+          "DependsOn" : [ "natUsEast1a" ],
           "Type": "AWS::EC2::Route",
           "Properties": {
-            "RouteTableId": "--",
-            "DestinationCidrBlock": { "Ref" : "" } ,
-            "GatewayId": "--"
+            "RouteTableId": { "Ref": "natRouteTable" },
+            "InstanceId" : { "Ref": "natUsEast1a" },
+            "DestinationCidrBlock": "0.0.0.0/0"
           }
         },
         "internetGatewayRouteTable": {
@@ -143,7 +144,7 @@
                 "IpProtocol" : "TCP",
                 "FromPort" : "22",
                 "ToPort" : "22",
-                "CidrIp" : "162.230.15.72/32"
+                "CidrIp" : "10.10.0.0/16"
             } ],
             "VpcId" : { "Ref" : "vpc1" },
             "Tags" :  [ { "Key" : "Name", "Value" : "bastionSecurityGroup" } ]
@@ -274,8 +275,8 @@
                         "Fn::Join": [
                             "",
                             [
-                                "#!/bin/bash -ex",
-                                "wget -O /tmp/chef-server-core_12.1.0-1_amd64.deb https://web-dl.packagecloud.io/chef/stable/packages/ubuntu/trusty/chef-server-core_12.1.0-1_amd64.deb"
+                                "#!/bin/bash -ex \n",
+                                "sudo wget -O /tmp/chef-server-core_12.1.0-1_amd64.deb https://web-dl.packagecloud.io/chef/stable/packages/ubuntu/trusty/chef-server-core_12.1.0-1_amd64.deb"
                             ]
                         ]
                     }
