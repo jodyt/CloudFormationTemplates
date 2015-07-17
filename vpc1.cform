@@ -65,6 +65,14 @@
             "Tags": [ { "Key" : "Name", "Value" : "natRouteTable" } ]
           }
         },
+        "routeToNatInstance": {
+          "Type": "AWS::EC2::Route",
+          "Properties": {
+            "RouteTableId": "--",
+            "DestinationCidrBlock": { "Ref" : "" } ,
+            "GatewayId": "--"
+          }
+        },
         "internetGatewayRouteTable": {
           "DependsOn" : [ "vpc1" ],
           "Type": "AWS::EC2::RouteTable",
@@ -267,7 +275,7 @@
                             "",
                             [
                                 "#!/bin/bash -ex",
-                                "-"
+                                "wget -O /tmp/chef-server-core_12.1.0-1_amd64.deb https://web-dl.packagecloud.io/chef/stable/packages/ubuntu/trusty/chef-server-core_12.1.0-1_amd64.deb"
                             ]
                         ]
                     }
